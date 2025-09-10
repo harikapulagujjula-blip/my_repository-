@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Journey: From Malnutrition to Health</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2196F3;
+            --accent: #FF9800;
+            --light: #F5F5F5;
+            --dark: #333;
+            --success: #8BC34A;
+            --warning: #FFC107;
+            --danger: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: var(--primary);
+        }
+        
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        
+        .timeline-item:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-left: 50%;
+            padding-right: 0;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 85%;
+            position: relative;
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid white;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            right: auto;
+            left: -10px;
+            border-left: none;
+            border-right: 10px solid white;
+        }
+        
+        .timeline-icon {
+            position: absolute;
+            top: 15px;
+            left: -60px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-icon {
+            left: auto;
+            right: -60px;
+        }
+        
+        .phase-title {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--primary);
+        }
+        
+        .nutrition-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        button:hover {
+            background: #3d8b40;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--warning), var(--success));
+            border-radius: 10px;
+            width: 30%;
+            transition: width 1s ease;
+        }
+        
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                padding-right: 0;
+                padding-left: 80px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                padding-left: 80px;
+                padding-right: 0;
+            }
+            
+            .timeline-icon {
+                left: 20px;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-icon {
+                left: 20px;
+                right: auto;
+            }
+            
+            .timeline-content::after {
+                display: none;
+            }
+            
+            .nutrition-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Journey to Nutritional Health</h1>
+            <p class="subtitle">Understanding the path from malnutrition to a healthy body</p>
+            <button id="startBtn">Begin Your Journey</button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="section">
+            <h2>The Path to Recovery</h2>
+            <p>Recovering from malnutrition is a journey that requires patience, knowledge, and consistent effort. This interactive guide will help you understand the stages of recovery and provide practical advice for each step.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Recognition Phase</h3>
+                        <p>Identifying signs of malnutrition: fatigue, weight loss, weakened immune system, and difficulty concentrating.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Assessment Phase</h3>
+                        <p>Medical evaluation to determine nutritional deficiencies, underlying health conditions, and appropriate treatment plans.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Nutritional Rehabilitation</h3>
+                        <p>Gradual introduction of nutrient-dense foods, focusing on proteins, vitamins, and minerals that address specific deficiencies.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Progress Monitoring</h3>
+                        <p>Regular check-ups to track improvements, adjust dietary plans, and ensure the body is responding positively to nutritional changes.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Maintenance Phase</h3>
+                        <p>Establishing sustainable eating habits and lifestyle changes to maintain optimal health and prevent relapse.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Key Nutritional Elements</h2>
+            <p>These essential nutrients play a vital role in recovering from malnutrition and maintaining good health:</p>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-header">Proteins</div>
+                    <div class="card-body">
+                        <div class="card-icon">
+                            <i class="fas fa-egg"></i>
+                        </div>
+                        <p>Essential for tissue repair, immune function, and muscle building. Sources: lean meats, fish, eggs, legumes, and dairy products.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Carbohydrates</div>
+                    <div class="card-body">
+                        <div class="card-icon">
+                            <i class="fas fa-bread-slice"></i>
+                        </div>
+                        <p>Provide energy for daily activities and recovery processes. Focus on complex carbs: whole grains, fruits, and vegetables.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Fats</div>
+                    <div class="card-body">
+                        <div class="card-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <p>Essential for hormone production and nutrient absorption. Choose healthy fats: avocados, nuts, olive oil, and fatty fish.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Vitamins & Minerals</div>
+                    <div class="card-body">
+                        <div class="card-icon">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <p>Critical for various bodily functions. Eat a varied diet of fruits and vegetables to obtain a full spectrum of micronutrients.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Track Your Progress</h2>
+            <p>Monitoring your journey helps maintain motivation and ensures you're moving in the right direction.</p>
+            
+            <div class="progress-container">
+                <h3>Your Recovery Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-labels">
+                    <span>Malnourished</span>
+                    <span>On the way</span>
+                    <span>Healthy</span>
+                </div>
+            </div>
+            
+            <form class="nutrition-form">
+                <div class="form-group">
+                    <label for="weight">Current Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="Enter your weight">
+                </div>
+                
+                <div class="form-group">
+                    <label for="energy">Energy Level</label>
+                    <select id="energy">
+                        <option value="">Select your energy level</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="meals">Daily Meals</label>
+                    <input type="number" id="meals" placeholder="How many meals do you eat daily?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="water">Water Intake (glasses)</label>
+                    <input type="number" id="water" placeholder="Glasses per day">
+                </div>
+                
+                <button type="button" id="updateProgress">Update Progress</button>
+            </form>
+        </section>
+        
+        <section class="section">
+            <h2>Healthy Meal Ideas</h2>
+            <p>Here are some nutrient-dense meal options to support your recovery:</p>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-header">Breakfast</div>
+                    <div class="card-body">
+                        <h3>Power Oatmeal</h3>
+                        <p>Oats cooked with milk, topped with nuts, seeds, and berries. Rich in fiber, protein, and antioxidants.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Lunch</div>
+                    <div class="card-body">
+                        <h3>Quinoa Bowl</h3>
+                        <p>Quinoa with grilled chicken, roasted vegetables, and avocado. Provides complete protein and healthy fats.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Dinner</div>
+                    <div class="card-body">
+                        <h3>Salmon & Sweet Potato</h3>
+                        <p>Baked salmon with roasted sweet potatoes and steamed broccoli. High in omega-3s and vitamins.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>This educational tool is not a substitute for professional medical advice. Always consult with healthcare providers for personalized nutritional guidance.</p>
+        <p>© 2023 Nutrition Journey | From Malnutrition to Health</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressFill = document.getElementById('progressFill');
+            const updateBtn = document.getElementById('updateProgress');
+            const startBtn = document.getElementById('startBtn');
+            
+            // Initialize progress
+            progressFill.style.width = '30%';
+            
+            // Update progress on button click
+            updateBtn.addEventListener('click', function() {
+                const weight = document.getElementById('weight').value;
+                const energy = document.getElementById('energy').value;
+                const meals = document.getElementById('meals').value;
+                const water = document.getElementById('water').value;
+                
+                let progress = 30;
+                
+                if (weight && weight > 0) progress += 10;
+                if (energy === 'medium') progress += 15;
+                if (energy === 'high') progress += 20;
+                if (meals && meals >= 3) progress += 15;
+                if (water && water >= 6) progress += 10;
+                
+                progress = Math.min(progress, 100);
+                
+                progressFill.style.width = `${progress}%`;
+                
+                alert(`Your progress has been updated to ${progress}%! Keep up the good work!`);
+            });
+            
+            startBtn.addEventListener('click', function() {
+                alert('Welcome to your nutrition journey! We recommend consulting with a healthcare provider for personalized advice.');
+            });
+            
+            // Animate timeline items on scroll
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            function checkScroll() {
+                timelineItems.forEach(item => {
+                    const position = item.getBoundingClientRect();
+                    
+                    if (position.top < window.innerHeight * 0.85) {
+                        item.style.opacity = 1;
+                        item.style.transform = 'translateX(0)';
+                        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    }
+                });
+            }
+            
+            // Initialize opacity for animation
+            timelineItems.forEach(item => {
+                item.style.opacity = 0;
+                item.style.transform = 'translateX(-20px)';
+            });
+            
+            window.addEventListener('scroll', checkScroll);
+            checkScroll(); // Initial check
+        });
+    </script>
+</body>
+</html>
